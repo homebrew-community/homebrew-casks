@@ -15,6 +15,8 @@ cask "fishing-funds" do
     strategy :github_latest
   end
 
+  deprecate! date: "2026-02-01", because: :discontinued
+
   depends_on macos: :monterey
 
   app "Fishing Funds.app"
