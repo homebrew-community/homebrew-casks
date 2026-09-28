@@ -2,6 +2,9 @@
 
 This repository is a **community-driven tap** built on top of [Homebrew Cask](https://github.com/Homebrew/homebrew-cask). It has one clear mission: to keep software installable when the official tap can't.
 
+> Maintaining this tap takes ongoing effort. A ⭐️ helps motivate us and makes the tap more discoverable to others
+> -- Thank You! ☺️
+
 ## Why This Tap Exists
 
 There are two kinds of casks that end up here:
@@ -15,6 +18,16 @@ When Gatekeeper checks cause a cask to be removed from `homebrew/cask`, it would
 Independent developers and community members often ship great software that isn't signed or notarized. The official tap won't take it. This tap will. It's an open space for those apps to be published, installed, and maintained through Homebrew.
 
 In short: if it works, and you want to install it with `brew`, this tap is for you.
+
+# Why Use This Tap
+
+### **1. It manages all future upgrades of the casks.**
+
+Many taps such as `thedavidweng/unsigned-tap` and `SoftwareRat/homebrew-unsigned-tap` have issues with cask auto-bumping. The casks they hold haven't been upgraded for a long time. This tap, however, actively maintains all future upgrades of the casks, so you can feel safe to use it.
+
+### **2. It actively solves PRs and Issues every day.**
+
+Please look at the closed issue count and closed PR count of this repo — we solve all the bugs and conflicts, and we approve version upgrade PRs every day. We also carefully review each upgrade and test it ourselves, so you can safely install and upgrade without errors.
 
 ## Getting Started
 
