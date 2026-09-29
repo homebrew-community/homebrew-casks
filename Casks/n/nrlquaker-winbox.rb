@@ -12,6 +12,8 @@ cask "nrlquaker-winbox" do
     strategy :github_latest
   end
 
+  deprecate! date: "2026-07-20", because: :discontinued
+
   depends_on macos: :sequoia
 
   app "Winbox-mac.app"
