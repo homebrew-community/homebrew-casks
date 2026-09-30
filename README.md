@@ -34,13 +34,13 @@ Please look at the closed issue count and closed PR count of this repo — we so
 First, add the tap:
 
 ```console
-% brew tap homebrew-community/cask
+% brew tap homebrew-community/casks
 ```
 
 Then install any cask from it:
 
 ```console
-% brew install --cask homebrew-community/cask/appium-inspector
+% brew install --cask homebrew-community/casks/appium-inspector
 ==> Fetching downloads for: appium-inspector
 ✔︎ Cask appium-inspector (1.0.0)                                           Verified      5.6MB/  5.6MB
 ==> Installing Cask appium-inspector
