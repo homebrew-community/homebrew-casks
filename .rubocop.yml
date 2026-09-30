@@ -1,4 +1,3 @@
-# This file is synced from `Homebrew/brew` by the `.github` repository, do not modify it directly.
 ---
 AllCops:
   TargetRubyVersion: 4.0
@@ -7,20 +6,15 @@ AllCops:
   Include:
   - "**/*.rbi"
   Exclude:
-  - Homebrew/sorbet/rbi/{annotations,dsl,gems}/**/*.rbi
-  - Homebrew/sorbet/rbi/parser*.rbi
-  - Homebrew/bin/*
-  - Homebrew/vendor/**/*
-  - Taps/*/*/vendor/**/*
   - "**/.github/copilot-instructions.md"
   - "**/vendor/**/*"
   SuggestExtensions:
     rubocop-minitest: false
 Layout/ArgumentAlignment:
   Exclude:
-  - Taps/*/*/*.rb
-  - "/**/Formula/**/*.rb"
-  - "**/Formula/**/*.rb"
+  - "*.rb"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
 Layout/CaseIndentation:
   EnforcedStyle: end
 Layout/FirstArrayElementIndentation:
@@ -34,7 +28,7 @@ Layout/HashAlignment:
   EnforcedColonStyle: table
 Layout/LeadingCommentSpace:
   Exclude:
-  - Taps/*/*/cmd/*.rb
+  - cmd/*.rb
 Layout/LineLength:
   Max: 118
   AllowedPatterns:
@@ -63,36 +57,32 @@ Layout/SpaceAroundOperators:
   Enabled: false
 Layout/SpaceBeforeBrackets:
   Exclude:
-  - "**/*_spec.rb"
-  - Taps/*/*/*.rb
-  - "/**/{Formula,Casks}/**/*.rb"
-  - "**/{Formula,Casks}/**/*.rb"
-Style/CommandLiteral:
-  Exclude:
-  - Homebrew/**/*.rb
+  - "*.rb"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 Lint/ArgumentMismatch:
   Enabled: false
 Lint/DuplicateBranch:
   Exclude:
-  - Taps/*/*/*.rb
-  - "/**/{Formula,Casks}/**/*.rb"
-  - "**/{Formula,Casks}/**/*.rb"
+  - "*.rb"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
 Lint/ConstantReassignment:
   Exclude:
   - "**/*.rbi"
-  - Taps/*/*/*.rb
-  - "/**/Formula/**/*.rb"
-  - "**/Formula/**/*.rb"
+  - "*.rb"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
 Lint/DeprecatedReference:
   Enabled: true
 Lint/DuplicateMethods:
   Exclude:
   - "**/*.rbi"
-  - Taps/*/*/*.rb
-  - "/**/Formula/**/*.rb"
-  - "**/Formula/**/*.rb"
+  - "*.rb"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
 Lint/NameTypo:
   AllowedNames:
   - IfNode
@@ -100,9 +90,9 @@ Lint/NameTypo:
   - send
 Lint/ParenthesesAsGroupedExpression:
   Exclude:
-  - Taps/*/*/*.rb
-  - "/**/Formula/**/*.rb"
-  - "**/Formula/**/*.rb"
+  - "*.rb"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
 Lint/UnusedMethodArgument:
   AllowUnusedKeywordArguments: true
 Metrics:
@@ -156,52 +146,48 @@ Style/DirectiveScope:
 Style/DisableCopsWithinSourceCodeDirective:
   Enabled: true
   Include:
-  - Taps/*/*/*.rb
-  - "/**/{Formula,Casks}/**/*.rb"
-  - "**/{Formula,Casks}/**/*.rb"
+  - "*.rb"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
 Style/Documentation:
   Exclude:
-  - Taps/**/*
-  - "/**/{Formula,Casks}/**/*.rb"
-  - "**/{Formula,Casks}/**/*.rb"
+  - "*"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
   - "**/*.rbi"
 Style/EmptyMethod:
   Exclude:
   - "**/*.rbi"
 Style/FetchEnvVar:
   Exclude:
-  - Taps/*/*/*.rb
-  - "/**/Formula/**/*.rb"
-  - "**/Formula/**/*.rb"
+  - "*.rb"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
 Style/OneClassPerFile:
   Exclude:
   - "**/*.rbi"
-  - Taps/*/*/*.rb
-  - "/**/Abstract/**/*.rb"
-  - "**/Abstract/**/*.rb"
-  - "/**/Formula/**/*.rb"
-  - "**/Formula/**/*.rb"
-  - "/**/developer/bin/*"
-  - "**/developer/bin/*"
+  - "*.rb"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
+  - "developer/bin/*"
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
   Exclude:
-  - Taps/*/*/*.rb
-  - "/**/{Formula,Casks}/**/*.rb"
-  - "**/{Formula,Casks}/**/*.rb"
-  - Homebrew/test/**/Casks/**/*.rb
+  - "*.rb"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
   - "**/*.rbi"
   - "**/Brewfile"
 Style/GuardClause:
   Exclude:
-  - Taps/*/*/*.rb
-  - "/**/{Formula,Casks}/**/*.rb"
-  - "**/{Formula,Casks}/**/*.rb"
+  - "*.rb"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
 Style/HashAsLastArrayItem:
   Exclude:
-  - Taps/*/*/*.rb
-  - "/**/Formula/**/*.rb"
-  - "**/Formula/**/*.rb"
+  - "*.rb"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
 Style/IfUnlessModifier:
   Enabled: false
 Style/InverseMethods:
@@ -223,8 +209,7 @@ Style/NumericLiterals:
   MinDigits: 11
   Strict: true
 Style/OpenStructUse:
-  Exclude:
-  - Taps/**/*
+  Enabled: false
 Style/OptionalBooleanParameter:
   AllowedMethods:
   - respond_to?
@@ -239,9 +224,9 @@ Style/StderrPuts:
   Enabled: false
 Style/StringConcatenation:
   Exclude:
-  - Taps/*/*/*.rb
-  - "/**/{Formula,Casks}/**/*.rb"
-  - "**/{Formula,Casks}/**/*.rb"
+  - "*.rb"
+  - "Formula/**/*.rb"
+  - "Casks/**/*.rb"
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/StringLiteralsInInterpolation:
@@ -255,9 +240,7 @@ Style/SymbolArray:
 Style/TernaryParentheses:
   EnforcedStyle: require_parentheses_when_complex
 Style/TopLevelMethodDefinition:
-  Enabled: true
-  Exclude:
-  - Taps/**/*
+  Enabled: false
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 Style/TrailingCommaInArrayLiteral:
