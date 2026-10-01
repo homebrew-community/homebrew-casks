@@ -6,6 +6,8 @@ cask "majsoul-plus" do
   name "Majsoul Plus"
   homepage "https://github.com/MajsoulPlus/majsoul-plus/"
 
+  deprecate! date: "2026-08-30", because: :discontinued
+
   depends_on :macos
 
   app "Majsoul Plus.app"
