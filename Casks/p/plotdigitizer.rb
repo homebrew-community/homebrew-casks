@@ -2,7 +2,7 @@ cask "plotdigitizer" do
   version "2.6.12"
   sha256 "46542758d70e80e194bf1ae7d1da31415bf91635f13782bc460d10af9568b987"
 
-  url "https://downloads.sourceforge.net/plotdigitizer/plotdigitizer/#{version}/PlotDigitizer_MacOS.dmg"
+  url "https://downloads.sourceforge.net/plotdigitizer/files/plotdigitizer/#{version}/PlotDigitizer_MacOS.dmg"
   name "Plot Digitizer"
   desc "Digitize scanned plots of functional data"
   homepage "https://plotdigitizer.sourceforge.net/"
