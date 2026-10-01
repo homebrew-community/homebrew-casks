@@ -77,8 +77,8 @@ jobs:
         id: generate-token
         uses: actions/create-github-app-token@v1
         with:
-          app_id: ${{ secrets.CASK_CI_APP_ID }}
-          private_key: ${{ secrets.CASK_CI_PRIVATE_KEY }}
+          app-id: ${{ secrets.CASK_CI_APP_ID }}
+          private-key: ${{ secrets.CASK_CI_PRIVATE_KEY }}
 
       - name: Check cask source is not archived.
         id: archived
