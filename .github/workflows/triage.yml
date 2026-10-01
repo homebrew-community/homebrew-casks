@@ -83,7 +83,7 @@ jobs:
       github.actor != github.repository_owner &&
       github.actor != 'github-actions[bot]' && 
       github.actor != 'dependabot[bot]' &&
-      github.actor != 'cask-ci[bot]'
+      github.actor != 'homebrew-community-cask-ci[bot]'
     runs-on: ubuntu-slim
     env:
       GH_TOKEN: ${{ secrets.GH_ACTION_PAT }}

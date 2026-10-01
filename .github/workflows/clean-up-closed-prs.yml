@@ -26,7 +26,7 @@ jobs:
       (github.actor == github.repository_owner ||
        github.actor == 'github-actions[bot]' ||
        github.actor == 'dependabot[bot]' ||
-       github.actor == 'cask-ci[bot]')
+       github.actor == 'homebrew-community-cask-ci[bot]')
     runs-on: ubuntu-latest
     # Ignore errors as branch may already be deleted
     continue-on-error: true
