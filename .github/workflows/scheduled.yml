@@ -25,11 +25,6 @@ jobs:
     env:
       TEST_COUNT: 50
     steps:
-      - name: Set TAP env varaible
-        run: |
-          TAP="${GITHUB_REPOSITORY/homebrew-/}"
-          echo "TAP=$TAP" >> $GITHUB_ENV
-
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@848c272c7bfe984a197bd4d16383f4c106ec61e6 # 2026.09.21.1
@@ -41,8 +36,10 @@ jobs:
 
       - name: Generate matrix
         id: matrix
+        env:
+          TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
         run: |
-          casks=$(find "$(brew --repo $TAP)/Casks" -type f | shuf -n $TEST_COUNT | xargs -I{} sh -c 'echo $TAP/$(basename {} .rb)')
+          casks=$(find "$(brew --repo $TAP_NAME)/Casks" -type f | shuf -n $TEST_COUNT | xargs -I{} sh -c 'echo $TAP_NAME/$(basename {} .rb)')
           json="$(
             echo $casks | xargs brew info --json=v2 --casks |
             jq --compact-output '[.casks[] | select(.deprecated == false and .disabled == false) | .full_token]'
