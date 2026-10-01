@@ -73,12 +73,22 @@ jobs:
           core: false
           cask: false
 
+      - name: Generate Github app token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: ${{ secrets.CASK_CI_APP_ID }}
+          private_key: ${{ secrets.CASK_CI_PRIVATE_KEY }}
+
       - name: Check cask source is not archived.
         id: archived
         run: brew audit --cask --online --skip-style --only github_repository_archived,gitlab_repository_archived "$CASK"
 
       - name: Report online issues
         if: ${{ failure() && steps.archived.conclusion == 'failure' }}
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: "${{ steps.generate-token.outputs.token }}"
+          GH_TOKEN: "${{ steps.generate-token.outputs.token }}"
         run: |
           gh issue create \
             --repo $GITHUB_REPOSITORY \
@@ -91,6 +101,9 @@ jobs:
 
       - name: Report homepage issues
         if: ${{ failure() && steps.homepage.conclusion == 'failure' }}
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: "${{ steps.generate-token.outputs.token }}"
+          GH_TOKEN: "${{ steps.generate-token.outputs.token }}"
         run:  |
           gh issue create \
             --repo $GITHUB_REPOSITORY \
@@ -103,6 +116,9 @@ jobs:
 
       - name: Report fetch issues
         if: ${{ failure() && steps.fetch.conclusion == 'failure' }}
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: "${{ steps.generate-token.outputs.token }}"
+          GH_TOKEN: "${{ steps.generate-token.outputs.token }}"
         run:  |
           gh issue create \
             --repo $GITHUB_REPOSITORY \

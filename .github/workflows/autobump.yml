@@ -31,17 +31,24 @@ jobs:
         id: git-user-config
         uses: Homebrew/actions/git-user-config@848c272c7bfe984a197bd4d16383f4c106ec61e6 # 2026.09.21.1
         with:
-          username: ${{ (github.event_name == 'workflow_dispatch' && github.actor) || 'github-actions[bot]' }}
+          username: ${{ (github.event_name == 'workflow_dispatch' && github.actor) || 'cask-ci[bot]' }}
+
+      - name: Generate Github app token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: ${{ secrets.CASK_CI_APP_ID }}
+          private_key: ${{ secrets.CASK_CI_PRIVATE_KEY }}
 
       - name: Bump casks
         id: autobump
         env:
-          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GH_ACTION_PAT }}
+          HOMEBREW_GITHUB_API_TOKEN: ${{ steps.generate-token.outputs.token }}
           HOMEBREW_GIT_COMMITTER_NAME: ${{ steps.git-user-config.outputs.name }}
           HOMEBREW_GIT_COMMITTER_EMAIL: ${{ steps.git-user-config.outputs.email }}
           TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
           CASKS: ${{ inputs.casks }}
-          GH_TOKEN: ${{ secrets.GH_ACTION_PAT }}
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
         continue-on-error: true
         run: |
           if [[ -n "${CASKS-}" ]]; then
