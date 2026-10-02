@@ -1,9 +1,9 @@
 name: Try install
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   pull_request_review:
     types: 
       - edited
