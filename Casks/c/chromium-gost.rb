@@ -3,16 +3,16 @@ cask "chromium-gost" do
 
   on_monterey :or_older do
     version "150.0.7871.224"
-    sha256 arm:   "a0da4b01daea8f45bdedf6ec085cc03205113c9f635a69b74f7fd8d62aaa9a79",
-           intel: "c992a36f1059bec4305db3880ebbdf1b4327c1477f3e2389f3662418133fa2ad"
+    sha256 arm:   "7032abf55d4ac19e0038cc2e70d438ca653e20b7360bc15bf60659044da34fc6",
+           intel: "a4e7b409350e8cb9369e1b95e090b5be3aae6645986d894dd355fc275128c51f"
     livecheck do
       skip "Legacy version"
     end
   end
   on_ventura :or_newer do
-    version "152.0.7977.134"
-    sha256 arm:   "a0da4b01daea8f45bdedf6ec085cc03205113c9f635a69b74f7fd8d62aaa9a79",
-           intel: "c992a36f1059bec4305db3880ebbdf1b4327c1477f3e2389f3662418133fa2ad"
+    version "152.0.7977.149"
+    sha256 arm:   "7032abf55d4ac19e0038cc2e70d438ca653e20b7360bc15bf60659044da34fc6",
+           intel: "a4e7b409350e8cb9369e1b95e090b5be3aae6645986d894dd355fc275128c51f"
     livecheck do
       url :url
       strategy :github_latest
