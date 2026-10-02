@@ -71,13 +71,7 @@ jobs:
           files=$(gh api repos/${{ github.repository }}/pulls/$PR_NUMBER/files --jq '.[].filename')
           echo "==> Files found:"
           echo $files
-          
-          # Save to step output using multiline delimiter
-          {
-            echo "files<<EOF"
-            echo "$files"
-            echo "EOF"
-          } >> $GITHUB_OUTPUT
+          echo "files=$files" >> $GITHUB_OUTPUT
 
       - name: Get modified files (Push)
         id: get-files-push
@@ -88,13 +82,7 @@ jobs:
           files=$(git diff --name-only HEAD~1 HEAD)
           echo "==> Files found:"
           echo $files
-
-          # Save to step output using multiline delimiter
-          {
-            echo "files<<EOF"
-            echo "$files"
-            echo "EOF"
-          } >> $GITHUB_OUTPUT
+          echo "files=$files" >> $GITHUB_OUTPUT
 
       - name: Get modified casks
         id: get-casks
