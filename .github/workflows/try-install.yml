@@ -1,0 +1,157 @@
+name: Try install
+
+on:
+  push:
+    branches:
+      - main
+  pull_request_review:
+    types: [submitted]
+  workflow_dispatch:
+    inputs:
+      casks:
+        description: Custom list of casks to try install
+        required: true
+
+defaults:
+  run:
+    shell: bash -euo pipefail {0}
+
+jobs:
+  install:
+    if: >
+      github.event_name == 'push' ||
+      github.event.review.state == 'approved' ||
+      github.event_name == 'workflow_dispatch'
+    runs-on: macos-26
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Generate Github app token
+        id: generate-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.CASK_CI_APP_ID }}
+          private-key: ${{ secrets.CASK_CI_PRIVATE_KEY }}
+
+      - name: Set Github app token
+        run: echo "GH_TOKEN=${{ steps.generate-token.outputs.token }}" >> $GITHUB_ENV
+
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@e99025eb970cfa124b8284a35463d87426917478 # 2026.09.28.1
+        with:
+          core: false
+          cask: false
+
+      - name: Cache Homebrew Bundler RubyGems
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ steps.set-up-homebrew.outputs.gems-path }}
+          key: macos-26-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
+          restore-keys: macos-26-rubygems-
+
+      - name: Get modified files (PR Review)
+        id: get-files-pr
+        if: github.event_name == 'pull_request_review'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          echo "==> Fetching modified files for PR #$PR_NUMBER..."
+
+          files=$(gh api repos/${{ github.repository }}/pulls/$PR_NUMBER/files --jq '.[].filename')
+          echo "==> Files found:"
+          echo $files
+          
+          # Save to step output using multiline delimiter
+          echo "files<<'EOF'" >> $GITHUB_OUTPUT
+          echo "$files" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Get modified files (Push)
+        id: get-files-push
+        if: github.event_name == 'push'
+        run: |
+          echo "==> Fetching modified files..."
+
+          files=$(git diff --name-only HEAD~1 HEAD)
+          echo "==> Files found:"
+          echo $files
+
+          # Save to step output using multiline delimiter
+          echo "files<<'EOF'" >> $GITHUB_OUTPUT
+          echo "$files" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Get modified casks
+        id: get-casks
+        if: github.event_name != 'workflow_dispatch'
+        run: |
+          echo "==> Finding modified casks..."
+          file_list="${{ steps.get-files-pr.outputs.files }}{{ steps.get-files-push.outputs.files }}"
+
+          cask_tokens=""
+          while IFS= read -r file; do
+            if [[ "$file" =~ ^Casks/([^/]+)/([^/]+)\.rb$ ]]; then
+              filename=$(basename "$file")
+              token="${filename%.rb}"
+              cask_tokens="$cask_tokens $token"
+            fi
+          done << 'EOF'
+          $file_list
+          EOF
+
+          # Trim leading/trailing whitespace and save to step output
+          cask_tokens=$(echo "$cask_tokens" | xargs)
+          echo "==> Casks found:"
+          echo $cask_tokens
+          echo "cask_tokens=$cask_tokens" >> $GITHUB_OUTPUT
+
+      - name: Resolve casks to process
+        id: resolve-casks
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "==> Using manually provided casks from workflow_dispatch"
+            # Normalize commas to spaces in case the user types comma-separated inputs
+            raw_input="${{ github.event.inputs.casks }}"
+            cask_tokens="${raw_input//,/ }"
+          else
+            echo "==> Using automatically extracted casks from PR review"
+            cask_tokens="${{ steps.get-casks.outputs.cask_tokens }}"
+          fi
+
+          cask_tokens=$(echo "$cask_tokens" | xargs)
+          echo "==> Final Cask List: $cask_tokens"
+          echo "cask_tokens=$cask_tokens" >> $GITHUB_OUTPUT
+
+      - name: Install casks
+        env:
+          TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
+          CASK_TOKENS: ${{ steps.resolve-casks.outputs.cask_tokens }}
+        run: |
+          if [ -z "$CASK_TOKENS" ]; then
+            echo "No casks to install."
+            exit 0
+          fi
+
+          for token in $CASK_TOKENS; do
+            CASK="$TAP_NAME/$token"
+            echo "==> Installing cask: $CASK"
+            
+            # Try installing via Homebrew
+            if ! brew install --cask "$CASK"; then
+              echo "::error:: Failed to install $CASK"
+
+              # Create a GitHub issue on failure
+              gh issue create \
+                --repo $GITHUB_REPOSITORY 
+                --title "$CASK installation has problems."
+                --body "$CASK installation has problems. Check $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            fi
+          done
