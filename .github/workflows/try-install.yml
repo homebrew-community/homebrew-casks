@@ -62,7 +62,7 @@ jobs:
         if: github.event_name == 'pull_request_review'
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
+        run:  |
           echo "==> Fetching modified files for PR #$PR_NUMBER..."
 
           files=$(gh api repos/${{ github.repository }}/pulls/$PR_NUMBER/files --jq '.[].filename')
@@ -70,14 +70,16 @@ jobs:
           echo $files
           
           # Save to step output using multiline delimiter
-          echo "files<<'EOF'" >> $GITHUB_OUTPUT
-          echo "$files" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "files<<'EOF'"
+            echo "$files"
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
 
       - name: Get modified files (Push)
         id: get-files-push
         if: github.event_name == 'push'
-        run: |
+        run:  |
           echo "==> Fetching modified files..."
 
           files=$(git diff --name-only HEAD~1 HEAD)
@@ -85,14 +87,16 @@ jobs:
           echo $files
 
           # Save to step output using multiline delimiter
-          echo "files<<'EOF'" >> $GITHUB_OUTPUT
-          echo "$files" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "files<<'EOF'"
+            echo "$files"
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
 
       - name: Get modified casks
         id: get-casks
         if: github.event_name != 'workflow_dispatch'
-        run: |
+        run:  |
           echo "==> Finding modified casks..."
           file_list="${{ steps.get-files-pr.outputs.files }}{{ steps.get-files-push.outputs.files }}"
 
@@ -103,9 +107,7 @@ jobs:
               token="${filename%.rb}"
               cask_tokens="$cask_tokens $token"
             fi
-          done << 'EOF'
-          $file_list
-          EOF
+          done <<< "$file_list"
 
           # Trim leading/trailing whitespace and save to step output
           cask_tokens=$(echo "$cask_tokens" | xargs)
@@ -115,7 +117,7 @@ jobs:
 
       - name: Resolve casks to process
         id: resolve-casks
-        run: |
+        run:  |
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "==> Using manually provided casks from workflow_dispatch"
             # Normalize commas to spaces in case the user types comma-separated inputs
@@ -134,7 +136,7 @@ jobs:
         env:
           TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
           CASK_TOKENS: ${{ steps.resolve-casks.outputs.cask_tokens }}
-        run: |
+        run:  |
           if [ -z "$CASK_TOKENS" ]; then
             echo "No casks to install."
             exit 0
@@ -150,8 +152,8 @@ jobs:
 
               # Create a GitHub issue on failure
               gh issue create \
-                --repo $GITHUB_REPOSITORY 
-                --title "$CASK installation has problems."
+                --repo $GITHUB_REPOSITORY \
+                --title "$CASK installation has problems." \
                 --body "$CASK installation has problems. Check $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
             fi
           done
