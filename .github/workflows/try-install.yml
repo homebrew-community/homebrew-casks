@@ -144,7 +144,7 @@ jobs:
             echo "==> Installing cask: $CASK"
             
             # Try installing via Homebrew
-            if ! brew install --cask "$CASK"; then
+            if ! brew install --verbose --cask "$CASK"; then
               echo "::error:: Failed to install $CASK"
 
               # Create a GitHub issue on failure
