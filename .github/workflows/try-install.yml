@@ -89,7 +89,9 @@ jobs:
         if: github.event_name != 'workflow_dispatch'
         run:  |
           echo "==> Finding modified casks..."
-          file_list="${{ steps.get-files-pr.outputs.files }}{{ steps.get-files-push.outputs.files }}"
+          file_list="${{ steps.get-files-pr.outputs.files }}${{ steps.get-files-push.outputs.files }}"
+          echo "==> Got modified file list:"
+          echo $file_list
 
           cask_tokens=""
           while IFS= read -r file; do
