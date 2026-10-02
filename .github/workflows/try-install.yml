@@ -5,7 +5,9 @@ on:
     branches:
       - main
   pull_request_review:
-    types: [submitted]
+    types: 
+      - edited
+      - submitted
   workflow_dispatch:
     inputs:
       casks:
@@ -25,6 +27,7 @@ jobs:
     runs-on: macos-26
     permissions:
       contents: read
+      pull-requests: read
       issues: write
     steps:
       - name: Generate Github app token
@@ -71,7 +74,7 @@ jobs:
           
           # Save to step output using multiline delimiter
           {
-            echo "files<<'EOF'"
+            echo "files<<EOF"
             echo "$files"
             echo "EOF"
           } >> $GITHUB_OUTPUT
@@ -88,7 +91,7 @@ jobs:
 
           # Save to step output using multiline delimiter
           {
-            echo "files<<'EOF'"
+            echo "files<<EOF"
             echo "$files"
             echo "EOF"
           } >> $GITHUB_OUTPUT
@@ -124,7 +127,11 @@ jobs:
             raw_input="${{ github.event.inputs.casks }}"
             cask_tokens="${raw_input//,/ }"
           else
-            echo "==> Using automatically extracted casks from PR review"
+            if [ "${{ github.event_name }}" == "push" ]; then
+              echo "==> Using automatically extracted casks from push"
+            else
+              echo "==> Using automatically extracted casks from PR review"
+            fi
             cask_tokens="${{ steps.get-casks.outputs.cask_tokens }}"
           fi
 
