@@ -18,13 +18,16 @@ jobs:
       contents: read
       pull-requests: write
       statuses: write
-    env:
-      GH_TOKEN: ${{ secrets.GH_ACTION_PAT }}
     steps:
-      - name: Check commit format
-        uses: Homebrew/actions/check-commit-format@e99025eb970cfa124b8284a35463d87426917478 # 2026.09.28.1
+      - name: Generate Github app token
+        id: generate-token
+        uses: actions/create-github-app-token@v3
         with:
-          token: ${{ secrets.GH_ACTION_PAT }}
+          app-id: ${{ secrets.CASK_CI_APP_ID }}
+          private-key: ${{ secrets.CASK_CI_PRIVATE_KEY }}
+
+      - name: Set Github app token
+        run: echo "GH_TOKEN=${{ steps.generate-token.outputs.token }}" >> $GITHUB_ENV
 
       - name: Label pull request
         uses: Homebrew/actions/label-pull-requests@e99025eb970cfa124b8284a35463d87426917478 # 2026.09.28.1
