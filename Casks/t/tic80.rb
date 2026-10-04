@@ -11,8 +11,8 @@ cask "tic80" do
     app "tic80.app"
   end
   on_sequoia :or_newer do
-    version "1.2.0"
-    sha256 "83a1f80d125a120e7901f5f081950772a97367399de1bec2a973aeb53f43c87a"
+    version "1.3.0"
+    sha256 "02392b8354e0bd51ff22a2bd8bbf695aa83701978eccfcafe9e80b762d6d9b03"
 
     app "TIC-80.app"
   end
