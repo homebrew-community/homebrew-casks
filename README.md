@@ -1,9 +1,10 @@
-# Homebrew Cask — Community Tap
+# Open Tap
 
 This repository is a **community-driven tap** built on top of [Homebrew Cask](https://github.com/Homebrew/homebrew-cask). It has one clear mission: to keep software installable when the official tap can't.
 
 > Maintaining this tap takes ongoing effort. A ⭐️ helps motivate us and makes the tap more discoverable to others
 > -- Thank You! ☺️
+> **Disclaimer:** Unofficial community tap. Not affiliated with Homebrew official.
 
 ## Why This Tap Exists
 
@@ -19,7 +20,7 @@ Independent developers and community members often ship great software that isn'
 
 In short: if it works, and you want to install it with `brew`, this tap is for you.
 
-# Why Use This Tap
+## Why Use This Tap
 
 ### **1. It manages all future upgrades of the casks.**
 
@@ -34,13 +35,14 @@ Please look at the closed issue count and closed PR count of this repo — we so
 First, add the tap:
 
 ```console
-% brew tap homebrew-community/casks
+% brew tap open-tap/casks
+% brew trust open-tap/casks
 ```
 
 Then install any cask from it:
 
 ```console
-% brew install --cask homebrew-community/casks/appium-inspector
+% brew install --cask open-tap/casks/appium-inspector
 ==> Fetching downloads for: appium-inspector
 ✔︎ Cask appium-inspector (1.0.0)                                           Verified      5.6MB/  5.6MB
 ==> Installing Cask appium-inspector
@@ -56,27 +58,13 @@ Start here: run `brew update-reset && brew update`, then try again. This resets 
 
 If that doesn't help:
 
-- **Search first.** Your issue may already exist [here](https://github.com/homebrew-community/homebrew-cask/search?type=Issues). Add a comment if you have new details. If it's closed, check whether the solution applies to you.
+- **Search first.** Your issue may already exist [here](https://github.com/open-tap/homebrew-casks/search?type=Issues). Add a comment if you have new details. If it's closed, check whether the solution applies to you.
 - **Still stuck?** Walk through the [common error examples](doc/reporting_bugs/error_examples.md) — they cover `curl` failures, permission errors, checksum mismatches, missing sources, and bad arguments.
-- **Other known cases:**
-  - [Why an app might be missing from `brew upgrade`](https://docs.brew.sh/FAQ#why-arent-some-apps-included-during-brew-upgrade)
-  - [Why macOS blocks an app from an unidentified developer](https://docs.brew.sh/FAQ#why-cant-i-open-a-mac-app-from-an-unidentified-developer)
-- **None of the above?** [Open a bug report](https://github.com/homebrew-community/homebrew-cask/issues/new?template=01_bug_report.yml) — but please read [this note](doc/faq/closing_issues_without_review.md) first, or your issue may be closed without review.
-
-## Want to Add Something?
-
-New casks are added through **pull requests**, not issues. Requests opened as issues will be closed. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full process and the [cask submission guide](https://github.com/homebrew-community/homebrew-cask/blob/HEAD/CONTRIBUTING.md#adding-a-cask).
-
-For feature requests, use [this template](https://github.com/Homebrew/brew/issues/new?assignees=&labels=features&projects=&template=feature.yml).
+- **None of the above?** [Open a bug report](https://github.com/open-tap/homebrew-casks/issues/new?template=01_bug_report.yml) — but please read [this note](doc/faq/closing_issues_without_review.md) first, or your issue may be closed without review.
 
 ## Talk to Us
 
-- [Open an issue](https://github.com/homebrew-community/homebrew-cask/issues/new/choose)
-
-## Going Deeper
-
-- [USAGE.md](USAGE.md) — day-to-day usage of Homebrew Cask
-- [Homebrew Cask documentation](https://docs.brew.sh/Adding-Software-to-Homebrew#casks) — background and project details
+- [Open an issue](https://github.com/open-tap/homebrew-casks/issues/new/choose)
 
 ## License
 

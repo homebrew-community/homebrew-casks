@@ -31,7 +31,7 @@ jobs:
         id: git-user-config
         uses: Homebrew/actions/git-user-config@e99025eb970cfa124b8284a35463d87426917478 # 2026.09.28.1
         with:
-          username: ${{ (github.event_name == 'workflow_dispatch' && github.actor) || 'homebrew-community-cask-ci[bot]' }}
+          username: ${{ (github.event_name == 'workflow_dispatch' && github.actor) || 'cask-ci[bot]' }}
 
       - name: Generate Github app token
         id: generate-token

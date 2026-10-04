@@ -74,9 +74,3 @@ Error: wrong number of arguments (1 for 4)
 it’s likely the software you’re trying to install is incompatible with your macOS version.
 
 [How to fix](https://docs.brew.sh/Common-Issues#cask---wrong-number-of-arguments)
-
----
-
-#### Unlisted reason
-
-If your issue isn’t listed here, [go back](https://github.com/Homebrew/homebrew-cask/blob/HEAD/README.md#reporting-bugs) and pick `My problem isn’t listed`.

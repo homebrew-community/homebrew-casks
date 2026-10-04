@@ -25,7 +25,7 @@ jobs:
       github.event.pull_request.user.login != github.repository_owner &&
       github.event.pull_request.user.login != 'github-actions[bot]' &&
       github.event.pull_request.user.login != 'dependabot[bot]' &&
-      github.event.pull_request.user.login != 'homebrew-community-cask-ci[bot]'
+      github.event.pull_request.user.login != 'cask-ci[bot]'
     runs-on: ubuntu-latest
     permissions:
       # Read the trusted base-branch pull request template and checker through
@@ -106,7 +106,7 @@ jobs:
         id: comments
         run: |
           gh api --paginate "repos/${GITHUB_REPOSITORY:?}/issues/${PR_NUMBER:?}/comments" \
-            --jq '.[] | select(.user.login == "homebrew-community-cask-ci[bot]" and (.body | contains("<!-- incomplete-pr-template -->"))) | .id' \
+            --jq '.[] | select(.user.login == "cask-ci[bot]" and (.body | contains("<!-- incomplete-pr-template -->"))) | .id' \
             >"${RUNNER_TEMP:?}/check-prs/incomplete-template-comment-ids"
           if [[ -s "${RUNNER_TEMP}/check-prs/incomplete-template-comment-ids" ]]
           then
@@ -128,7 +128,7 @@ jobs:
         if: >
           github.event.pull_request.state == 'closed' &&
           steps.template.outputs.complete_template == 'true' &&
-          steps.closer.outputs.closed_by == 'homebrew-community-cask-ci[bot]' &&
+          steps.closer.outputs.closed_by == 'cask-ci[bot]' &&
           steps.comments.outputs.has_incomplete_template_comment == 'true'
         run: |
           gh api --method PATCH "repos/${GITHUB_REPOSITORY:?}/pulls/${PR_NUMBER:?}" \
