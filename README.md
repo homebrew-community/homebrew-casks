@@ -4,6 +4,7 @@ This repository is a **community-driven tap** built on top of [Homebrew Cask](ht
 
 > Maintaining this tap takes ongoing effort. A ⭐️ helps motivate us and makes the tap more discoverable to others
 > -- Thank You! ☺️
+>
 > **Disclaimer:** Unofficial community tap. Not affiliated with Homebrew official.
 
 ## Why This Tap Exists
