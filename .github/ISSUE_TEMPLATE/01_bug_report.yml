@@ -7,7 +7,7 @@ body:
       label: Verification
       description: Please verify that you’ve followed these steps
       options:
-        - label: I understand that [if I ignore these instructions, my issue may be closed without review](https://github.com/homebrew-community/homebrew-cask/blob/HEAD/doc/faq/closing_issues_without_review.md).
+        - label: I understand that [if I ignore these instructions, my issue may be closed without review](https://github.com/open-tap/homebrew-casks/blob/HEAD/doc/faq/closing_issues_without_review.md).
           required: true
         - label: I have retried my command with `--force`.
           required: false
@@ -15,7 +15,7 @@ body:
           required: false
         - label: I ran `brew doctor`, fixed as many issues as possible and retried my command.
           required: false
-        - label: I have checked the instructions for [reporting bugs](https://github.com/homebrew-community/homebrew-cask#reporting-bugs).
+        - label: I have checked the instructions for [reporting bugs](https://github.com/open-tap/homebrew-casks#reporting-bugs).
           required: true
         - label: I made doubly sure this is not a [checksum does not match / SHA256 mismatch](https://docs.brew.sh/Common-Issues#cask---checksum-does-not-match) error (do not open an issue before trying to open a PR to fix first).
           required: true
