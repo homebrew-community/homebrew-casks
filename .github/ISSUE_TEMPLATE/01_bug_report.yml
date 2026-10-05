@@ -1,6 +1,8 @@
 name: Reproducible Bug Report
 description: If you’re sure it’s reproducible and not just your machine, submit an issue so we can investigate
 type: "Bug"
+labels:
+  - "bug"
 body:
   - type: checkboxes
     attributes:
@@ -9,15 +11,11 @@ body:
       options:
         - label: I understand that [if I ignore these instructions, my issue may be closed without review](https://github.com/open-tap/homebrew-casks/blob/HEAD/doc/faq/closing_issues_without_review.md).
           required: true
-        - label: I have retried my command with `--force`.
-          required: false
         - label: I ran `brew update-reset && brew update` and retried my command.
           required: false
         - label: I ran `brew doctor`, fixed as many issues as possible and retried my command.
           required: false
-        - label: I have checked the instructions for [reporting bugs](https://github.com/open-tap/homebrew-casks#reporting-bugs).
-          required: true
-        - label: I made doubly sure this is not a [checksum does not match / SHA256 mismatch](https://docs.brew.sh/Common-Issues#cask---checksum-does-not-match) error (do not open an issue before trying to open a PR to fix first).
+        - label: I have read the [troubleshooting guide](https://github.com/open-tap/homebrew-casks/blob/HEAD/doc/reporting_bugs/error_examples.md) and confirmed this is not a common issue.
           required: true
         - label: I did not use AI/LLM to create this issue, or I disclosed the tool and model used; I will answer maintainer questions myself without AI/LLM.
           required: true

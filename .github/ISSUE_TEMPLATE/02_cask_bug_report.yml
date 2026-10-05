@@ -1,0 +1,109 @@
+name: Cask Bug Report
+description: Report a bug with a specific cask in this tap (install failure, wrong version, broken app behavior)
+type: "Bug"
+labels:
+  - "bug"
+body:
+  - type: checkboxes
+    attributes:
+      label: Verification
+      description: Please verify that you've followed these steps
+      options:
+        - label: I understand that [if I ignore these instructions, my issue may be closed without review](https://github.com/open-tap/homebrew-casks/blob/HEAD/doc/faq/closing_issues_without_review.md).
+          required: true
+        - label: I have searched the [existing casks](https://github.com/open-tap/homebrew-casks/tree/HEAD/Casks) and confirmed this cask is present in the tap.
+          required: true
+        - label: I have searched the [open and closed issues](https://github.com/open-tap/homebrew-casks/issues?q=is%3Aissue) and confirmed this bug has not already been reported.
+          required: true
+        - label: I ran `brew update-reset && brew update` and retried my command.
+          required: true
+        - label: I ran `brew doctor`, fixed as many issues as possible, and retried my command.
+          required: true
+        - label: I have read the [troubleshooting guide](https://github.com/open-tap/homebrew-casks/blob/HEAD/doc/reporting_bugs/error_examples.md).
+          required: true
+        - label: I understand that if this bug is caused by the `brew` command itself (not the cask), it should be reported to [homebrew/brew](https://github.com/Homebrew/brew/issues) instead.
+          required: true
+        - label: I did not use AI/LLM to create this issue, or I disclosed the tool and model used; I will answer maintainer questions myself without AI/LLM.
+          required: true
+  - type: input
+    attributes:
+      label: Cask token
+      description: The token of the affected cask (the filename in `Casks/` without `.rb`)
+      placeholder: e.g. razer-macos
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: What kind of bug is it?
+      options:
+        - "Installation fails"
+        - "Upgrade fails"
+        - "Wrong version is installed"
+        - "Download URL is broken"
+        - "Checksum / SHA256 mismatch"
+        - "App crashes or doesn't launch after install"
+        - "App behaves incorrectly after install"
+        - "Other (describe below)"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Description of the bug
+      description: What happened, and what did you expect to happen instead?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: A precise, ordered list of steps that reliably reproduce the bug
+      placeholder: |
+        1. Run `brew install --cask open-tap/casks/razer-macos`
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Command that failed
+      description: The exact command you ran, if applicable
+      placeholder: e.g. brew install --cask open-tap/casks/razer-macos
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Output of the failed command with `--verbose --debug`
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Output of `brew doctor` and `brew config`
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Output of `brew tap`
+      render: shell
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: macOS version
+      description: The version of macOS you're running
+      placeholder: e.g. 15.1 (Sequoia)
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Machine architecture
+      description: The architecture of your Mac
+      placeholder: e.g. Apple Silicon (arm64) / Intel (x86_64)
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: Screenshots, crash logs, or any other useful context
+    validations:
+      required: false

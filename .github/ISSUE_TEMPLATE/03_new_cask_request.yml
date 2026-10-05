@@ -1,0 +1,80 @@
+name: New Cask Request
+description: Request a new cask to be added to the tap
+type: "Feature"
+labels:
+  - "new cask"
+body:
+  - type: checkboxes
+    attributes:
+      label: Verification
+      description: Please verify that you've followed these steps
+      options:
+        - label: I understand that [if I ignore these instructions, my issue may be closed without review](https://github.com/open-tap/homebrew-casks/blob/HEAD/doc/faq/closing_issues_without_review.md).
+          required: true
+        - label: This app is **not** available in the official [homebrew/cask](https://github.com/Homebrew/homebrew-cask/tree/HEAD/Casks) tap.
+          required: true
+        - label: I have searched the [existing casks](https://github.com/open-tap/homebrew-casks/tree/HEAD/Casks) and confirmed this cask is not already present.
+          required: true
+        - label: I have searched the [open and closed issues](https://github.com/open-tap/homebrew-casks/issues?q=is%3Aissue) and confirmed this cask has not already been requested.
+          required: true
+        - label: I did not use AI/LLM to create this issue, or I disclosed the tool and model used; I will answer maintainer questions myself without AI/LLM.
+          required: true
+  - type: input
+    attributes:
+      label: App name
+      description: The human-readable name of the application
+      placeholder: e.g. Razer macOS
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Homepage URL
+      description: The official homepage or project page of the app
+      placeholder: e.g. https://github.com/1kc/razer-macos
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Download URL
+      description: A direct link to the latest release (DMG, PKG, or ZIP)
+      placeholder: e.g. https://github.com/1kc/razer-macos/releases/download/v0.4.10/Razer.macOS-0.4.10-universal.dmg
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Is the app open source?
+      options:
+        - "Yes"
+        - "No"
+        - "Partially (some components open, some closed)"
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Does the app auto-update itself?
+      description: If the app updates itself, users may not need brew to get new versions
+      options:
+        - "No"
+        - "Yes"
+        - "Not sure"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Upstream maintainer contact (optional)
+      description: GitHub username or email of the upstream developer, if known
+      placeholder: e.g. @acidghost
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Why should this cask be added to the tap?
+      description: Explain what makes this app worth including — e.g. it was recently disabled in homebrew/cask, it has active users, or the upstream project is maintained.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: Screenshots, links to previous discussions, or any other useful context
+    validations:
+      required: false

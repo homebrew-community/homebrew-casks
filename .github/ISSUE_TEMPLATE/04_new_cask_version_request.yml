@@ -1,0 +1,71 @@
+name: New Cask Version Request
+description: Request a newer upstream version of an existing cask in this tap
+type: "Enhancement"
+labels:
+  - "new cask version"
+body:
+  - type: checkboxes
+    attributes:
+      label: Verification
+      description: Please verify that you've followed these steps
+      options:
+        - label: I understand that [if I ignore these instructions, my issue may be closed without review](https://github.com/open-tap/homebrew-casks/blob/HEAD/doc/faq/closing_issues_without_review.md).
+          required: true
+        - label: I have searched the [existing casks](https://github.com/open-tap/homebrew-casks/tree/HEAD/Casks) and confirmed this cask is present in the tap.
+          required: true
+        - label: I have searched the [open and closed issues](https://github.com/open-tap/homebrew-casks/issues?q=is%3Aissue) and confirmed this version has not already been requested.
+          required: true
+        - label: I ran `brew update` and confirmed the newer version is not already available in the tap.
+          required: true
+        - label: I did not use AI/LLM to create this issue, or I disclosed the tool and model used; I will answer maintainer questions myself without AI/LLM.
+          required: true
+  - type: input
+    attributes:
+      label: Cask token
+      description: The token of the existing cask (the filename in `Casks/` without `.rb`)
+      placeholder: e.g. razer-macos
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Current version in the tap
+      description: The version currently installed or listed in the tap's cask file
+      placeholder: e.g. 0.4.10
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Requested version
+      description: The newer upstream version you'd like to see added
+      placeholder: e.g. 0.5.0
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Upstream release URL
+      description: A direct link to the new release page or download
+      placeholder: e.g. https://github.com/1kc/razer-macos/releases/tag/v0.5.0
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Why is this version important?
+      description: Explain what changed — new features, security fixes, compatibility with a newer macOS, etc. If the release notes are available, link or paste the relevant part.
+    validations:
+      required: false
+  - type: dropdown
+    attributes:
+      label: Have you tried installing the new version manually?
+      description: If you tested the new release outside of brew, share the result below
+      options:
+        - "No"
+        - "Yes, and it works"
+        - "Yes, but it has issues"
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: Release notes, screenshots, or any other useful context
+    validations:
+      required: false
