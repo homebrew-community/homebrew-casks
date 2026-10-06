@@ -3,7 +3,7 @@ cask "assinador-serpro" do
 
   on_arm do
     version "4.5.7"
-    sha256 "a7db35a43a448b2bb9cfca1c0cba540a5d6ae9e5ec0015d97f3411b283e89f89"
+    sha256 "f4bf5d9d8af99adbf9819e3884709c729a64ee86c9a214eb7777270c2c887ea0"
   end
   on_intel do
     version "4.4.0"
