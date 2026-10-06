@@ -17,4 +17,10 @@ cask "omlx" do
   depends_on macos: :sequoia
 
   app "oMLX.app"
+
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+  end
+
+  # zap trash: []
 end

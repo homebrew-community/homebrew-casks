@@ -21,6 +21,10 @@ cask "betterbird" do
 
   app "Betterbird.app"
 
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+  end
+
   zap trash: [
     "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/org.mozilla.betterbird.sfl*",
     "~/Library/Caches/Thunderbird",

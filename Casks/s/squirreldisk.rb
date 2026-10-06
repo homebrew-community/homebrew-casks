@@ -16,6 +16,10 @@ cask "squirreldisk" do
 
   app "SquirrelDisk.app"
 
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+  end
+
   zap trash: [
     "~/Library/Caches/com.squirreldisk.dev",
     "~/Library/Preferences/com.squirreldisk.dev.plist",
