@@ -33,7 +33,7 @@ jobs:
         uses: Homebrew/actions/label-pull-requests@e99025eb970cfa124b8284a35463d87426917478 # 2026.09.28.1
         if: ${{ always() }}
         with:
-          token: ${{ secrets.GH_ACTION_PAT }}
+          token: ${{ steps.generate-token.outputs.token }}
           def: |
             - label: cask deprecated
               path: Casks/.+
