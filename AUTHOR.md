@@ -6,4 +6,3 @@
 * [Jun Ma (马欣淳)](https://github.com/maxinchun5)
 * [Sakutaro ](https://github.com/SSakutaro/)
 * [i0ntempest](https://github.com/i0ntempest)
-* [wickles](https://github.com/wickles)
