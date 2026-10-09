@@ -17,6 +17,10 @@ cask "zoho-mail" do
 
     app "Zoho Mail - Desktop.app"
 
+    postflight_steps do
+      run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+    end
+
     uninstall quit: "com.zoho.mail.desktop"
 
     zap trash: [
@@ -44,9 +48,5 @@ cask "zoho-mail" do
     strategy :json do |json, regex|
       json[os]&.values&.filter_map { |item| item[livecheck_arch]&.[](regex, 1) }
     end
-  end
-
-  postflight_steps do
-    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
   end
 end

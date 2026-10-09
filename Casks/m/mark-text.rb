@@ -13,6 +13,10 @@ cask "mark-text" do
 
     app "MarkText.app"
 
+    postflight_steps do
+      run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+    end
+
     zap trash: [
       "~/Library/Application Support/marktext",
       "~/Library/Logs/marktext",
@@ -38,8 +42,4 @@ cask "mark-text" do
   homepage "https://github.com/marktext/marktext"
 
   auto_updates true
-
-  postflight_steps do
-    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
-  end
 end

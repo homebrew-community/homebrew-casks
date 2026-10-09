@@ -11,6 +11,10 @@ cask "koodo-reader" do
   on_macos do
     app "Koodo Reader.app"
 
+    postflight_steps do
+      run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+    end
+
     zap trash: [
       "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/xyz.960960.koodo.sfl*",
       "~/Library/Application Support/koodo-reader",
@@ -26,8 +30,4 @@ cask "koodo-reader" do
   name "Koodo Reader"
   desc "Open-source e-book reader"
   homepage "https://www.koodoreader.com/en"
-
-  postflight_steps do
-    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
-  end
 end

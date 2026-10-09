@@ -2,6 +2,12 @@ cask "unetbootin" do
   version "702"
   sha256 "204f867e9b2604a5ba8818b7d7f4be83d08fa0c3eb0c22e51c39fc5526bd1aed"
 
+  on_macos do
+    postflight_steps do
+      run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+    end
+  end
+
   url "https://github.com/unetbootin/unetbootin/releases/download/#{version}/unetbootin-mac-#{version}.dmg"
   name "UNetbootin"
   desc "Tool to install Linux/BSD distributions to a partition or USB drive"
@@ -15,10 +21,6 @@ cask "unetbootin" do
   depends_on :macos
 
   app "unetbootin.app"
-
-  postflight_steps do
-    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
-  end
 
   zap trash: "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.yourcompany.unetbootin.sfl*"
 

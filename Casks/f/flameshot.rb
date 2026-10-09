@@ -20,6 +20,10 @@ cask "flameshot" do
 
     app "Flameshot.app"
 
+    postflight_steps do
+      run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+    end
+
     uninstall quit: "org.flameshot.flameshot"
   end
   on_linux do
@@ -48,10 +52,6 @@ cask "flameshot" do
         "#{match[1]},#{match[2]},#{match[3]}"
       end
     end
-  end
-
-  postflight_steps do
-    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
   end
 
   zap trash: [

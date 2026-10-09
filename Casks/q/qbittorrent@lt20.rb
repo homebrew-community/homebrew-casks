@@ -24,6 +24,10 @@ cask "qbittorrent@lt20" do
     # Renamed for consistency: app name is different in the Finder and in a shell.
     app "qbittorrent.app", target: "qBittorrent.app"
 
+    postflight_steps do
+      run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+    end
+
     zap trash: [
       "~/.config/qBittorrent",
       "~/Library/Application Support/qBittorrent",
@@ -56,8 +60,4 @@ cask "qbittorrent@lt20" do
     "c0re100-qbittorrent",
     "qbittorrent",
   ]
-
-  postflight_steps do
-    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
-  end
 end

@@ -9,6 +9,12 @@ cask "lw-scanner" do
          arm64_linux:  "cca1b384a038d116a560ac358c9d4bd45e2d0c3b7039b8b861e65e0bc94663df",
          x86_64_linux: "28f564755a145dafe775b35e8d960464141b304ab6de9bcd3606b2f7c033800f"
 
+  on_macos do
+    postflight_steps do
+      run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+    end
+  end
+
   url "https://github.com/lacework/lacework-vulnerability-scanner/releases/download/v#{version}/lw-scanner-#{os}-#{arch}.#{url_end}"
   name "Lacework vulnerability scanner"
   desc "Lacework inline scanner"
@@ -20,10 +26,6 @@ cask "lw-scanner" do
   end
 
   binary "bin/lw-scanner"
-
-  postflight_steps do
-    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
-  end
 
   zap trash: "~/.config/lw-scanner"
 end
