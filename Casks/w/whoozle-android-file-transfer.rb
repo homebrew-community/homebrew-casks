@@ -2,12 +2,6 @@ cask "whoozle-android-file-transfer" do
   version "4.5"
   sha256 "05d55ec3015d514cbe9a673c2f6034ea376cb9ad5ab875f8fd4000335605b0b2"
 
-  on_macos do
-    postflight_steps do
-      run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
-    end
-  end
-
   url "https://github.com/whoozle/android-file-transfer-linux/releases/download/v#{version}/AndroidFileTransferForLinux.dmg"
   name "Android File Transfer"
   desc "Android File Transfer for Linux"
@@ -18,6 +12,10 @@ cask "whoozle-android-file-transfer" do
   app "Android File Transfer for Linux.app"
   binary "#{appdir}/Android File Transfer for Linux.app/Contents/SharedSupport/bin/aft-mtp-cli"
   binary "#{appdir}/Android File Transfer for Linux.app/Contents/SharedSupport/bin/aft-mtp-mount"
+
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+  end
 
   # No zap stanza required
 
