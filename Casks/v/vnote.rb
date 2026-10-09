@@ -1,13 +1,13 @@
 cask "vnote" do
-  version "4.8.0"
-  sha256 "cae171f6465453ae86f13bf132ee2af12c2b08d608b42988f65ee6713f7a14aa"
+  version "4.9.0"
+  sha256 "bb238255f9e17a38b8eb959e238ea6b2db3fd00cd3fe632718f7cb23acca4cd8"
 
   url "https://github.com/vnotex/vnote/releases/download/v#{version}/VNote-#{version}-mac-universal.dmg"
   name "VNote"
   desc "Note-taking platform"
   homepage "https://docs.vnote.fun/"
 
-  depends_on macos: :monterey
+  depends_on macos: :ventura
 
   app "VNote.app"
 
