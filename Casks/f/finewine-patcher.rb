@@ -17,6 +17,10 @@ cask "finewine-patcher" do
 
   app "FineWine Patcher.app"
 
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+  end
+
   zap trash: [
     "~/Library/Caches/io.github.stoicswe.FineWinePatcher",
     "~/Library/Preferences/io.github.stoicswe.FineWinePatcher.plist",
