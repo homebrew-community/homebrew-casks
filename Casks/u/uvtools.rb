@@ -10,9 +10,22 @@ cask "uvtools" do
          x86_64_linux: "a8d03cc55305be744c21e592ca7b053b60e45174215cc52fabde796ad0e3f2dc"
 
   on_macos do
+    depends_on macos: :ventura
+
+    app "UVtools.app"
+
     postflight_steps do
       run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
     end
+
+    zap trash: [
+      "~/Library/Preferences/com.UVtools.plist",
+      "~/Library/Saved Application State/com.UVtools.savedState",
+    ]
+  end
+  on_linux do
+    app_image "UVtools_linux-#{arch}_v#{version}.AppImage",
+              target: "UVtools.AppImage"
   end
 
   url "https://github.com/sn4k3/UVtools/releases/download/v#{version}/UVtools_#{os}-#{arch}_v#{version}.#{url_end}"
@@ -21,12 +34,4 @@ cask "uvtools" do
   homepage "https://github.com/sn4k3/UVtools"
 
   auto_updates true
-  depends_on macos: :ventura
-
-  app "UVtools.app"
-
-  zap trash: [
-    "~/Library/Preferences/com.UVtools.plist",
-    "~/Library/Saved Application State/com.UVtools.savedState",
-  ]
 end

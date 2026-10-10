@@ -19,6 +19,10 @@ cask "darktable" do
 
     app "darktable.app"
 
+    postflight_steps do
+      run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+    end
+
     uninstall quit: "org.darktable"
   end
   on_linux do
@@ -34,10 +38,6 @@ cask "darktable" do
     url :url
     regex(/^release[._-]v?(\d+(?:\.\d+)+)$/i)
     strategy :github_latest
-  end
-
-  postflight_steps do
-    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
   end
 
   zap trash: [

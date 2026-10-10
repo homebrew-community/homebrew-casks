@@ -14,6 +14,10 @@ cask "c0re100-qbittorrent" do
 
     app "qBittorrent.app"
 
+    postflight_steps do
+      run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
+    end
+
     zap trash: [
       "~/.config/qBittorrent",
       "~/Library/Application Support/qBittorrent",
@@ -42,8 +46,4 @@ cask "c0re100-qbittorrent" do
     "qbittorrent",
     "qbittorrent@lt20",
   ]
-
-  postflight_steps do
-    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{staged_path}}"]
-  end
 end
