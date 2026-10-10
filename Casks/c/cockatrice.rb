@@ -17,7 +17,7 @@ cask "cockatrice" do
     version "3.1.1,2026-10-10,Reality-Check,3.1.1"
 
     on_ventura do
-      sha256 "4137a2021c97ef47f514b44898bc3897c1448698962dcad1f4d8482632e57bb8"
+      sha256 "4ff6498a42ea4b9bd37e7ab36f5d07076e3fa322ae9c3b1e44448789b52f82d5"
 
       url "https://github.com/Cockatrice/Cockatrice/releases/download/#{version.csv.second}-Release-#{version.csv.first}/Cockatrice-#{version.csv.third}-#{version.csv.fourth}-macOS13_Intel.dmg"
 
@@ -26,7 +26,7 @@ cask "cockatrice" do
       end
     end
     on_sonoma do
-      sha256 "53bc76f1e0291af6e53c6989c6811561a7fe3f64aea574e4826ae00e370da98d"
+      sha256 "4f48059bc823542c4282d6397ac4cec6ec9b1f3dc68615d36f5ded05771a5cec"
 
       url "https://github.com/Cockatrice/Cockatrice/releases/download/#{version.csv.second}-Release-#{version.csv.first}/Cockatrice-#{version.csv.third}-#{version.csv.fourth}-macOS14.dmg"
     end
